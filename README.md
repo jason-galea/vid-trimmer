@@ -17,5 +17,6 @@ Requirements:
 You will also need some video files you want to trim down, with filenames matching the following formatting:
 - "[1.33 to 1.41] cool clip #1.mp4"
 - "[2.42 to 2.57] cool clip #2 [3.22 to 3.36] cool clip #3.mp4"
+
 Please note that for "cool clip #1" this will explicitly cut from the start of the second at 1:33, to the beginning of the second at 1:41.
 The actual content of the second at 1.41 is not included.
