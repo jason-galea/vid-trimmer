@@ -1,36 +1,36 @@
 #! python3
 
 import sys, getopt, os, re
-import ffmpeg
 
-def encode_nvenc(filename, start_offset, duration, new_name): # str, int(s), int(s), str, str
-    (
-        ffmpeg.input(filename, **{
-            'vsync':0 # Never allow duplicate frames
-            , 'hwaccel':'cuvid', 'c:v':'h264_cuvid' # Allow hwaccel with h264_cuvid decoder
-        })
-        .output(new_name, **{
-            'c:v':'hevc_nvenc' # HEVC/H265 encoder
-            , 'ss':start_offset + 1, 't':duration # Trim start & restrict duration (AKA. trim end)
-            , 'rc:v':'vbr_hq', 'cq:v':19, 'preset':'slow' # Quality settings
-            , 'video_bitrate':'8M', 'audio_bitrate':'192K' # Bitrate settings (Audio still fluctuates, ehh)
-        })
-        .overwrite_output() # Same as "-y"
-        .run()
-    )
-
-def ts_convert(s): # Eg: "2.42" >> 162
-    s = str(s).split(".") # Eg: ["2", "42"]
-    s = (int(s[0]) * 60) + int(s[1]) # Eg: 162 = (2*60) + 42
-    return s
+from funcs import *
+from encoder_presets import * 
 
 def main(argv):
     cwd = os.getcwd()
     os.chdir(cwd) # This avoids having to add "cwd" to the start of the filename/new_name(s)
+
     reg = re.compile(r"^\[(?P<timestamp>[^\[]+)\](?P<new_name>[^\[]+)")
 
+    encoder = "h264"
+
     # Receive arguments 
-    
+    try:
+        opts, args = getopt.getopt(argv, "h", ["help", "h264", "hevc", "vp9", "nvenc"])
+    except getopt.GetoptError:
+        print_help()
+
+    # Cycle through all args
+    for opt, arg in opts:
+        if opt in ("-h", "--help"):
+            print_help() # Prints help then exits
+        elif opt == "--h264":
+            encoder = "h264"
+        elif opt == "--hevc":
+            encoder = "hevc"       
+        elif opt == "--vp9":
+            encoder = "vp9" 
+        elif opt == "--nvenc":
+            encoder = "nvenc" 
 
     print('>> This script will clean up any ".mp4" files in the current directory: "%s"' %(cwd))
     input()

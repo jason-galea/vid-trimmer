@@ -1,5 +1,0 @@
-#ffmpeg.exe -i 'IN' -c:v libx265 -c:a copy -ss 160 -b:a 192k -crf 18 'OUT'
-
-#ffmpeg.exe -vsync 0 -hwaccel cuvid -c:v h264_cuvid -i 'IN' -c:v h264_nvenc -ss 160 -b:v 16384k -b:a 196k 'OUT'
-
-ffmpeg.exe -vsync 0 -hwaccel cuvid -c:v h264_cuvid -i 'IN' -c:v hevc_nvenc -ss 'VALUE' -t 'VALUE' -rc:v vbr_hq -cq:v 19 -preset slow -b:v 12M -b:a 196K 'OUT'

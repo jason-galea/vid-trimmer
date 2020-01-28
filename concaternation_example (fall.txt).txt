@@ -1,4 +1,0 @@
-# ffmpeg -f concat -c:v h264_cuvid -hwaccel cuvid -vsync 0 -i "fall.txt" -b:v 16M -b:a 192K -c:v hevc_nvenc -cq:v 17 -preset slow -rc:v vbr_hq "A long fall.mp4" -y
-
-file 'fall_1.mp4'
-file 'fall_2.mp4'
