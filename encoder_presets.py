@@ -18,7 +18,7 @@ def encode_hevc(filename, start_offset, duration, new_name): # str, int(s), int(
             'vsync':0 # Never allow duplicate frames
         })
         .output(new_name, **{
-            'c:v':'hevc'
+            'c:v':'libx265'
             , 'ss':start_offset, 't':duration # Trim start & restrict duration
             , 'rc:v':'vbr_hq', 'cq:v':19, 'preset':'slow' # Quality settings
             # , 'video_bitrate':'8M'
