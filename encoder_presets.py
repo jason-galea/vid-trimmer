@@ -2,6 +2,10 @@
 
 import ffmpeg
 
+def encode(encoder, filename, start_offset, duration, new_name):
+    pass
+    
+
 def encode_nvenc(filename, start_offset, duration, new_name): # str, int(s), int(s), str, str
     (
         ffmpeg.input(filename, **{

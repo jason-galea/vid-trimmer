@@ -8,9 +8,7 @@ from encoder_presets import *
 def main(argv):
     cwd = os.getcwd()
     os.chdir(cwd) # This avoids having to add "cwd" to the start of the filename/new_name(s)
-
-    reg = re.compile(r"^\[(?P<timestamp>[^\[]+)\](?P<new_name>[^\[]+)")
-
+    reg = re.compile(r"\[(?P<timestamp>[^\[]+)\](?P<new_name>[^\[]+)")
     encoder = "h264"
 
     # Receive arguments 
@@ -20,18 +18,18 @@ def main(argv):
         print("\nInvalid arguments\n")
         sys.exit(2)
 
-    # Cycle through all args
+    # Check for "-h" before starting loop
     for opt, arg in opts:
         if opt in ("-h", "--help"):
             print_help() # Prints help then exits
         elif opt == "--h264":
-            encoder = "h264"
-        elif opt == "--hevc":
-            encoder = "hevc"       
+            pass # This is fine, right?
+        elif opt == "--hevc":  
+            encoder = "hevc"
         elif opt == "--vp9":
-            encoder = "vp9" 
+            encoder = "vp9"
         elif opt == "--nvenc":
-            encoder = "nvenc" 
+            encoder = "nvenc"    
 
     print('>> This script will clean up any ".mp4" files in the current directory: "%s"' %(cwd))
     input()
@@ -47,12 +45,12 @@ def main(argv):
             if ".mp4" not in new_name: # Accounts for regex matching both "abc" and "abc.mp4" for group "new_name"
                 new_name = new_name + ".mp4"
         
-            # Choose encoder
-            # print('> encode_mp4("%s", %s, %s, "%s")\n' %(filename, start_offset, duration, new_name,)) # "encode"
-            encode_nvenc(filename, start_offset, duration, new_name)
-            # exit()
+            print('> encode("%s", "%s", %s, %s, "%s")\n' %(encoder, filename, start_offset, duration, new_name,))
+            # encode(encoder, filename, start_offset, duration, new_name)
+            
+            # exit() # Only encode one file
 
-    input("\n>> Press any key to exit")
+    input(">> Press any key to exit")
     exit()
 
 if __name__ == "__main__":
