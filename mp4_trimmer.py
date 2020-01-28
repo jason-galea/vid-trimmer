@@ -1,7 +1,6 @@
 #! python3
 
-import os
-import re
+import sys, getopt, os, re
 import ffmpeg
 
 def encode_nvenc(filename, start_offset, duration, new_name): # str, int(s), int(s), str, str
@@ -25,28 +24,35 @@ def ts_convert(s): # Eg: "2.42" >> 162
     s = (int(s[0]) * 60) + int(s[1]) # Eg: 162 = (2*60) + 42
     return s
 
-cwd = os.getcwd()
-os.chdir(cwd) # This avoids having to add "cwd" to the start of the filename/new_name(s)
-reg = re.compile(r"^\[(?P<timestamp>[^\[]+)\](?P<new_name>[^\[]+)")
+def main(argv):
+    cwd = os.getcwd()
+    os.chdir(cwd) # This avoids having to add "cwd" to the start of the filename/new_name(s)
+    reg = re.compile(r"^\[(?P<timestamp>[^\[]+)\](?P<new_name>[^\[]+)")
 
-print('>> This script will clean up any ".mp4" files in the current directory: "%s"' %(cwd))
-input()
-
-for filename in os.listdir(cwd):
-    for timestamp, new_name in re.findall(reg, filename): # Returns tuple for each clip
-        timestamp = timestamp.split(" to ")
-        new_name = new_name.strip()
-        start_offset = ts_convert(timestamp[0])
-        duration = ts_convert(timestamp[1]) - start_offset
-
-        # (USE DIFFERENT BRANCH) Set new_name to chosen format
-        if ".mp4" not in new_name: # Accounts for regex matching both "abc" and "abc.mp4" for group "new_name"
-            new_name = new_name + ".mp4"
+    # Receive arguments 
     
-        # Choose encoder
-        # print('> encode_mp4("%s", %s, %s, "%s")\n' %(filename, start_offset, duration, new_name,)) # "encode"
-        encode_nvenc(filename, start_offset, duration, new_name)
-        # exit()
 
-input("\n>> Press any key to exit")
-exit()
+    print('>> This script will clean up any ".mp4" files in the current directory: "%s"' %(cwd))
+    input()
+
+    for filename in os.listdir(cwd):
+        for timestamp, new_name in re.findall(reg, filename): # Returns tuple for each clip
+            timestamp = timestamp.split(" to ")
+            new_name = new_name.strip()
+            start_offset = ts_convert(timestamp[0])
+            duration = ts_convert(timestamp[1]) - start_offset
+
+            # (USE DIFFERENT BRANCH) Set new_name to chosen format
+            if ".mp4" not in new_name: # Accounts for regex matching both "abc" and "abc.mp4" for group "new_name"
+                new_name = new_name + ".mp4"
+        
+            # Choose encoder
+            # print('> encode_mp4("%s", %s, %s, "%s")\n' %(filename, start_offset, duration, new_name,)) # "encode"
+            encode_nvenc(filename, start_offset, duration, new_name)
+            # exit()
+
+    input("\n>> Press any key to exit")
+    exit()
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
