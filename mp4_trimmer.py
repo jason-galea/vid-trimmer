@@ -9,7 +9,7 @@ def main(argv):
     cwd = os.getcwd()
     os.chdir(cwd) # This avoids having to add "cwd" to the start of the filename/new_name(s)
     reg = re.compile(r"\[(?P<timestamp>[^\[]+)\](?P<new_name>[^\[]+)")
-    encoder = "h264"
+    # encoder = "h264" # Not needed since h264 is already the default for encode()
 
     # Receive arguments 
     try:
