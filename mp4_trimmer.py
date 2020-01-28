@@ -4,7 +4,7 @@ import os
 import re
 import ffmpeg
 
-def encode_mp4(filename, start_offset, duration, new_name): # str, int(seconds), int(seconds), str
+def encode_nvenc(filename, start_offset, duration, new_name): # str, int(s), int(s), str, str
     (
         ffmpeg.input(filename, **{
             'vsync':0 # Never allow duplicate frames
@@ -38,10 +38,14 @@ for filename in os.listdir(cwd):
         new_name = new_name.strip()
         start_offset = ts_convert(timestamp[0])
         duration = ts_convert(timestamp[1]) - start_offset
+
+        # (USE DIFFERENT BRANCH) Set new_name to chosen format
         if ".mp4" not in new_name: # Accounts for regex matching both "abc" and "abc.mp4" for group "new_name"
             new_name = new_name + ".mp4"
+    
+        # Choose encoder
         # print('> encode_mp4("%s", %s, %s, "%s")\n' %(filename, start_offset, duration, new_name,)) # "encode"
-        encode_mp4(filename, start_offset, duration, new_name)
+        encode_nvenc(filename, start_offset, duration, new_name)
         # exit()
 
 input("\n>> Press any key to exit")
