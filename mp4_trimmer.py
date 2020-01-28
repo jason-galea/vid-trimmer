@@ -45,8 +45,8 @@ def main(argv):
             if ".mp4" not in new_name: # Accounts for regex matching both "abc" and "abc.mp4" for group "new_name"
                 new_name = new_name + ".mp4"
         
-            print('> encode("%s", "%s", %s, %s, "%s")\n' %(encoder, filename, start_offset, duration, new_name,))
-            # encode(encoder, filename, start_offset, duration, new_name)
+            print('> encode("%s", "%s", %s, %s, "%s")\n' %(encoder, filename, start_offset + 1, duration, new_name,))
+            # encode(encoder, filename, start_offset + 1, duration, new_name)
             
             # exit() # Only encode one file
 
