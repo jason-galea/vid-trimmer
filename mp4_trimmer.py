@@ -17,7 +17,8 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv, "h", ["help", "h264", "hevc", "vp9", "nvenc"])
     except getopt.GetoptError:
-        print_help()
+        print("\nInvalid arguments\n")
+        sys.exit(2)
 
     # Cycle through all args
     for opt, arg in opts:

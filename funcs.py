@@ -8,9 +8,9 @@ def ts_convert(s): # Eg: "2.42" >> 162
     return s
 
 def print_help():
-    print ''
-    print 'Options:'
-    print '-h   Show help options'
-    print ''
+    print()
+    print("Options:")
+    print("-h   Show help options")
+    print("\n")
 
     sys.exit(2)
