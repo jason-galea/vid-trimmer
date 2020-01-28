@@ -1,10 +1,5 @@
 #! python3
 
-# Consider this filename:
-#       "[2.42 to 2.57] car moon jump [3.22 to 3.36] another cool clip.mp4"
-# This will explicitly cut from the start of the second at 2:42, to the beginning of the second at 2:57.
-# The actual content of the second at 2:57 is not included.
-
 import os
 import re
 import ffmpeg
