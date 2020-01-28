@@ -1,6 +1,6 @@
 # vid-trimmer
-> A quick script to clean up my oversized shadow-play recordings with ffmpeg.
-> Written in python, and interacting with ffmpeg via python-ffmpeg
+This is a quick script to clean up my oversized shadow-play recordings with ffmpeg.
+Written in python, and interacting with ffmpeg via python-ffmpeg.
 
 I began writing this script to help automate the trimming and re-encoding of some gameplay recordings that I had accumulated over several years. These recordings were vastly oversized for what they were, with excessive bitrates (30-60mbps for 1080p60fps) and often minutes of irrelevant footage per file.
 
