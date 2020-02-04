@@ -11,7 +11,7 @@ def main(argv):
     cwd = os.getcwd()
     os.chdir(cwd) # This avoids having to add "cwd" to the start of the filename/new_name(s)
     reg = re.compile(r"\[(?P<timestamp>[^\[]+)\](?P<new_name>[^\[]+)")
-    # encoder = "h264" # Not needed since h264 is already the default for encode()
+    encoder = "h264" # Not needed since h264 is already the default for encode()
 
     # Receive arguments 
     try:
@@ -20,7 +20,6 @@ def main(argv):
         print("\nInvalid arguments\n")
         sys.exit(2)
 
-    # Check for "-h" before starting loop
     for opt, arg in opts:
         if opt in ("-h", "--help"):
             print_help() # Prints help then exits
@@ -41,14 +40,14 @@ def main(argv):
             timestamp = timestamp.split(" to ")
             new_name = new_name.strip()
             start_offset = ts_convert(timestamp[0])
-            duration = ts_convert(timestamp[1]) - start_offset
+            duration = ts_convert(timestamp[1]) - start_offset + 1
 
             # (USE DIFFERENT BRANCH) Set new_name to chosen format
             if ".mp4" not in new_name: # Accounts for regex matching both "abc" and "abc.mp4" for group "new_name"
                 new_name = new_name + ".mp4"
         
-            print('> encode("%s", "%s", %s, %s, "%s")\n' %(encoder, filename, start_offset + 1, duration, new_name,))
-            # encode(encoder, filename, start_offset + 1, duration, new_name)
+            # print('> encode("%s", "%s", %s, %s, "%s")\n' %(encoder, filename, start_offset + 1, duration, new_name))
+            encode(encoder, filename, start_offset, duration, new_name)
             
             # exit() # Only encode one file
 

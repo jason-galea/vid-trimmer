@@ -13,4 +13,4 @@ def print_help():
     print("-h   Show help options")
     print("\n")
 
-    sys.exit(2)
+    sys.exit(0)

@@ -9,7 +9,7 @@ def encode(encoder, filename, start_offset, duration, new_name):
         encode_vp9(filename, start_offset, duration, new_name)
     elif encoder == "nvenc":
         encode_nvenc(filename, start_offset, duration, new_name)
-    else:
+    else: # Default to H264
         encode_h264(filename, start_offset, duration, new_name)
 
 def encode_hevc(filename, start_offset, duration, new_name): # str, int(s), int(s), str, str
