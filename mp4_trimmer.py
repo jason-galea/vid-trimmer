@@ -1,7 +1,5 @@
 #! python3
 
-# test test test new clone test test test 
-
 import sys, getopt, os, re
 
 from funcs import *
